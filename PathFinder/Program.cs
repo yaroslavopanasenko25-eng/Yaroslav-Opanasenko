@@ -1,6 +1,6 @@
 ﻿using PathFinder;
 using PathFinder.MapGeneration;
-
+Console.WriteLine("67~67~67~67~67~^67~67~67~67~67~^");
 var optionsToGenerate = new MapGeneratorOptions()
 {
     Height = 10,
