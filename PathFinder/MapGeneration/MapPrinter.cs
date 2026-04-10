@@ -9,14 +9,38 @@ public class MapPrinter
         var pathSet = new HashSet<(int, int)>();
         foreach (var p in path) pathSet.Add((p.Column, p.Row));
 
+        Point? start = path.Count > 0 ? path.First() : null;
+        Point? destination = path.Count > 0 ? path.Last() : null;
+
         PrintTopLine(maze);
         for (var row = 0; row < maze.GetLength(1); row++)
         {
             Console.Write($"{row}\t");
             for (var column = 0; column < maze.GetLength(0); column++)
             {
-                if (path.Count > 0 && column == path.Last().Column && row == path.Last().Row) Console.Write("A");
-                else if (path.Count > 0 && column == path.First().Column && row == path.First().Row) Console.Write("B");
+                if (start.HasValue && column == start.Value.Column && row == start.Value.Row) Console.Write("A");
+                else if (destination.HasValue && column == destination.Value.Column && row == destination.Value.Row) Console.Write("B");
+                else if (pathSet.Contains((column, row))) Console.Write(".");
+                else Console.Write(maze[column, row]);
+            }
+            Console.WriteLine();
+        }
+    }
+
+    public void Print(string[,] maze, List<Point> path, Point start, Point waypoint, Point destination)
+    {
+        var pathSet = new HashSet<(int, int)>();
+        foreach (var p in path) pathSet.Add((p.Column, p.Row));
+
+        PrintTopLine(maze);
+        for (var row = 0; row < maze.GetLength(1); row++)
+        {
+            Console.Write($"{row}\t");
+            for (var column = 0; column < maze.GetLength(0); column++)
+            {
+                if (column == start.Column && row == start.Row) Console.Write("A");
+                else if (column == waypoint.Column && row == waypoint.Row) Console.Write("C");
+                else if (column == destination.Column && row == destination.Row) Console.Write("B");
                 else if (pathSet.Contains((column, row))) Console.Write(".");
                 else Console.Write(maze[column, row]);
             }

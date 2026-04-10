@@ -150,13 +150,21 @@ public class MapGenerator
     }
 
     public static List<Point> GetNeighbours(int column, int row, string[,] maze, int offset = 2,
-        bool checkWalls = false)
+        bool checkWalls = false, bool includeDiagonals = false)
     {
         var result = new List<Point>();
         TryAddWithOffset(offset, 0);
         TryAddWithOffset(-offset, 0);
         TryAddWithOffset(0, offset);
         TryAddWithOffset(0, -offset);
+
+        if (includeDiagonals)
+        {
+            TryAddWithOffset(offset, offset);
+            TryAddWithOffset(offset, -offset);
+            TryAddWithOffset(-offset, offset);
+            TryAddWithOffset(-offset, -offset);
+        }
         return result;
 
         void TryAddWithOffset(int offsetX, int offsetY)

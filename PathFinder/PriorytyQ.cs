@@ -8,16 +8,16 @@ public class QueueItem
 
 public class MyPriorityQueue
 {
-    private List<QueueItem> elements = new List<QueueItem>();
+    private List<QueueItem> elements = new List<QueueItem>(); // 
 
-    public void Enqueue(Point item, double priority)
+    public void Enqueue(Point item, double priority) // додаємо елемпнт
     {
         QueueItem newItem = new QueueItem();
         newItem.PointDetails = item;
         newItem.PriorityValue = priority;
 
-        elements.Add(newItem);
-        Bubbleup(elements.Count - 1);
+        elements.Add(newItem); // кладемо в кінець 
+        Bubbleup(elements.Count - 1); // піднімаємо вврех за пріоритетом 
     }
 
     public Point Dequeue()
@@ -26,10 +26,10 @@ public class MyPriorityQueue
         if (elements.Count > 1)
         {
             int lastIndex = elements.Count - 1;
-            var last = elements[lastIndex];
-            elements[0] = last;
+            var last = elements[lastIndex]; 
+            elements[0] = last; // піднімаємо 
             elements.RemoveAt(lastIndex);
-            BubbleDown(0);
+            BubbleDown(0); // опускаємо вниз для відновлення порядку купи 
         }
         else
         {
@@ -42,11 +42,11 @@ public class MyPriorityQueue
     {
         while (index > 0)
         {
-            int parentindex = (index - 1) / 2;
+            int parentindex = (index - 1) / 2; // пошук за формулою батьків в дереві
             double mypriority = elements[index].PriorityValue;
             double parentpriority = elements[parentindex].PriorityValue;
 
-            if (mypriority < parentpriority)
+            if (mypriority < parentpriority) // якщо менше пріорітет то міняємо 
             {
                 var difference = elements[index];
                 elements[index] = elements[parentindex];
